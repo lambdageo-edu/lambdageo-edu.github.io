@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LambdaGeo Edu — Compiladores, Interpretadores &amp; Linguagens</title>
+<meta name="description" content="Material de ensino de compiladores, interpretadores e linguagens de programação do LambdaGeo, UFMA.">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1565C0;
+    --green:#2E7D32;
+    --cyan:#00ACC1;
+    --ink:#263238;
+    --ink-soft:#5b6b73;
+    --bg:#FAFAFA;
+    --surface:#ffffff;
+    --border:#e1e6e8;
+    --radius:4px;
+    --maxw:820px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --blue:#5B9BD5;
+      --green:#5cb85f;
+      --cyan:#2ec4dd;
+      --ink:#e7edf0;
+      --ink-soft:#a9b6bc;
+      --bg:#151b1e;
+      --surface:#1c2428;
+      --border:#2c363b;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Noto Sans', system-ui, sans-serif;
+    font-size:16px; line-height:1.65;
+  }
+  h1,h2,h3{font-family:'Poppins',sans-serif; font-weight:700; line-height:1.25; margin:0 0 .5rem;}
+  a{color:var(--blue); text-decoration:none;}
+  a:hover{color:var(--cyan); text-decoration:underline;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 1.5rem;}
+
+  header.top{border-bottom:1px solid var(--border); padding:1rem 0; background:var(--surface);}
+  header.top .wrap{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem;}
+  .brand{display:flex; align-items:center; gap:.6rem;}
+  .brand img{height:38px; width:auto; display:block;}
+  nav.top{display:flex; gap:1.25rem; font-size:.92rem; flex-wrap:wrap;}
+  nav.top a{color:var(--ink); font-weight:500;}
+  nav.top a:hover{color:var(--blue);}
+
+  .hero{padding:3.2rem 0 2.2rem;}
+  .hero .kicker{color:var(--green); font-weight:600; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; margin-bottom:.5rem;}
+  .hero h1{font-size:1.9rem; max-width:24ch; color:var(--ink);}
+  .hero h1 .accent{color:var(--blue);}
+  .hero p{color:var(--ink-soft); max-width:60ch; margin:0 0 1.1rem;}
+  .notice{
+    font-size:.85rem; color:var(--ink-soft);
+    background:var(--surface); border:1px solid var(--border);
+    border-left:3px solid var(--cyan);
+    padding:.7rem .9rem; border-radius:var(--radius); max-width:60ch;
+  }
+
+  section{padding:2.4rem 0; border-top:1px solid var(--border);}
+  section h2{font-size:1.3rem; color:var(--ink);}
+  section h2 .dot{color:var(--green);}
+  section > p.lead{color:var(--ink-soft); max-width:60ch; margin-top:0;}
+
+  .tracks{display:grid; gap:.9rem; margin-top:1.2rem;}
+  .track{
+    background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--blue);
+    border-radius:var(--radius); padding:.95rem 1.15rem;
+  }
+  .track h3{font-size:1.02rem; margin-bottom:.2rem; color:var(--ink);}
+  .track p{margin:0 0 .35rem; font-size:.9rem; color:var(--ink-soft);}
+  .track a.hosted{font-size:.82rem; font-weight:600;}
+
+  #repos-status{font-size:.9rem; color:var(--ink-soft); margin-top:1rem;}
+  .repo-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:.8rem; margin-top:1.2rem;}
+  .repo-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:.9rem 1rem; display:flex; flex-direction:column; gap:.4rem;
+  }
+  .repo-card h3{font-size:.96rem; margin:0;}
+  .repo-card h3 a{color:var(--blue);}
+  .repo-card p{margin:0; font-size:.82rem; color:var(--ink-soft); flex:1;}
+  .repo-meta{display:flex; align-items:center; gap:.45rem; font-size:.78rem; color:var(--ink-soft); flex-wrap:wrap;}
+  .lang-dot{width:.55rem; height:.55rem; border-radius:50%; background:var(--cyan); display:inline-block;}
+
+  footer{padding:2.2rem 0 3rem; font-size:.85rem; color:var(--ink-soft); border-top:1px solid var(--border);}
+  footer .links{display:flex; gap:1.1rem; flex-wrap:wrap; margin-top:.5rem;}
+  footer .links a{font-weight:500;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <img src="assets/logo.png" alt="LambdaGeo Edu">
+    </div>
+    <!-- Links apontando para o LambdaGeo por enquanto — trocar quando este espaço tiver conteúdo próprio -->
+    <nav class="top">
+      <a href="https://lambdageo.github.io/">About</a>
+      <a href="https://lambdageo.github.io/teaching/">Teaching</a>
+      <a href="https://lambdageo.github.io/#-e-books">E-books</a>
+      <a href="https://github.com/lambdageo-edu">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">LambdaGeo · Ensino</div>
+    <h1>Compiladores, interpretadores e <span class="accent">linguagens de programação</span></h1>
+    <p>A trilha de ensino do LambdaGeo dedicada a construir compiladores e interpretadores do zero — de Nand2Tetris a Crafting Interpreters, passando por programação funcional.</p>
+    <p class="notice">Este espaço está sendo organizado. Por enquanto, o material completo (livros, aulas) continua em <a href="https://lambdageo.github.io/">lambdageo.github.io</a> — aqui reunimos o código correspondente.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Trilhas</h2>
+    <p class="lead">Cada trilha tem seu livro-texto hospedado no LambdaGeo; o código de referência e os exercícios vivem nos repositórios desta organização.</p>
+    <div class="tracks">
+      <div class="track">
+        <h3>Compiladores com Nand2Tetris</h3>
+        <p>Do assembler ao compilador Jack, construído em várias linguagens.</p>
+        <a class="hosted" href="https://lambdageo.github.io/book-compiladores-com-nand2tetris/">Livro-texto ↗</a>
+      </div>
+      <div class="track">
+        <h3>Paradigmas de Programação</h3>
+        <p>Interpretadores e VMs — Crafting Interpreters e variações.</p>
+        <a class="hosted" href="https://lambdageo.github.io/book-paradigmas-de-programacao/">Livro-texto ↗</a>
+      </div>
+      <div class="track">
+        <h3>Introdução à Programação Funcional</h3>
+        <p>Haskell, Clojure e Elixir aplicados a problemas do dia a dia.</p>
+        <a class="hosted" href="https://lambdageo.github.io/book-introducao-a-programacao-funcional/">Livro-texto ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Repositórios</h2>
+    <p class="lead">Carregados automaticamente da organização <a href="https://github.com/lambdageo-edu">github.com/lambdageo-edu</a>.</p>
+    <div id="repos-status">Carregando repositórios…</div>
+    <div id="repo-grid" class="repo-grid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>LambdaGeo Edu faz parte do ecossistema <a href="https://lambdageo.github.io/">LambdaGeo</a> — UFMA.</div>
+    <div class="links">
+      <a href="https://lambdageo.github.io/">lambdageo.github.io</a>
+      <a href="https://dissmodel.github.io/">dissmodel.github.io</a>
+      <a href="https://github.com/lambdageo-edu">github.com/lambdageo-edu</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ORG = 'lambdageo-edu';
+  var statusEl = document.getElementById('repos-status');
+  var grid = document.getElementById('repo-grid');
+
+  function timeAgo(dateStr){
+    var d = new Date(dateStr);
+    var days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    if (days < 1) return 'hoje';
+    if (days < 30) return days + ' dia' + (days === 1 ? '' : 's') + ' atrás';
+    var months = Math.floor(days / 30);
+    if (months < 12) return months + ' mês' + (months === 1 ? '' : 'es') + ' atrás';
+    return Math.floor(months / 12) + ' ano(s) atrás';
+  }
+
+  fetch('https://api.github.com/orgs/' + ORG + '/repos?sort=updated&per_page=100')
+    .then(function(res){
+      if (!res.ok) throw new Error('status ' + res.status);
+      return res.json();
+    })
+    .then(function(repos){
+      if (!Array.isArray(repos) || repos.length === 0){
+        statusEl.textContent = 'Nenhum repositório público ainda em ' + ORG + '.';
+        return;
+      }
+      statusEl.textContent = repos.length + ' repositório(s) em ' + ORG + '.';
+      repos.forEach(function(repo){
+        var card = document.createElement('div');
+        card.className = 'repo-card';
+
+        var h3 = document.createElement('h3');
+        var a = document.createElement('a');
+        a.href = repo.html_url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = repo.name;
+        h3.appendChild(a);
+
+        var p = document.createElement('p');
+        p.textContent = repo.description || 'Sem descrição.';
+
+        var meta = document.createElement('div');
+        meta.className = 'repo-meta';
+        var langHtml = '';
+        if (repo.language){
+          langHtml += '<span class="lang-dot"></span><span>' + repo.language + '</span>';
+        }
+        var star = repo.stargazers_count > 0 ? '<span>★ ' + repo.stargazers_count + '</span>' : '';
+        var updated = '<span>atualizado ' + timeAgo(repo.updated_at) + '</span>';
+        meta.innerHTML = [langHtml, star, updated].filter(Boolean).join('<span>·</span>');
+
+        card.appendChild(h3);
+        card.appendChild(p);
+        card.appendChild(meta);
+        grid.appendChild(card);
+      });
+    })
+    .catch(function(err){
+      statusEl.textContent = 'Organização "' + ORG + '" ainda não encontrada ou sem repositórios públicos no momento.';
+    });
+})();
+</script>
+</body>
+</html>
